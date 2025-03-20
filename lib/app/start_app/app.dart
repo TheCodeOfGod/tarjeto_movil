@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:tarjeto/app/start_app/start_screen.dart';
+import 'package:tarjeto/config/config.dart';
+import 'package:tarjeto/screens/login/login_screen.dart';
+import 'package:tarjeto/screens/signup/signup.dart';
+import 'package:tarjeto/screens/signup/verificar_correo.dart';
+
+import 'package:tarjeto/screens/start_screen.dart';
 
 class AppStart extends StatelessWidget {
   const AppStart({super.key});
@@ -9,9 +14,23 @@ class AppStart extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
 
+        textSelectionTheme: TextSelectionThemeData(
+          cursorColor: TarjetoColors.rojoPrincipal,
+          selectionColor: TarjetoColors.rojoPrincipal.withOpacity(0.5),
+          selectionHandleColor: TarjetoColors.rojoPrincipal,
+        ),
           fontFamily: "Nunito"),
+
       debugShowCheckedModeBanner: false,
-        home: StartScreen(),
+        initialRoute: '/',
+
+        routes: {
+          '/': (context) => const StartScreen(),
+          '/login': (context) => const LoginScreen(),
+          '/signup': (context) => const Signup(),
+          '/verificarcorreo': (context) => const VerificarCorreo(),
+        },
+
     );
   }
 }
