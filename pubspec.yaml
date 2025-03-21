@@ -36,6 +36,8 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_svg: ^2.0.17
   qr_flutter: ^4.1.0
+  auto_size_text: ^3.0.0
+  pin_code_fields: ^8.0.1
 
 dev_dependencies:
   flutter_launcher_icons: ^0.14.3

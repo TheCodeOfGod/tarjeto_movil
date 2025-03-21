@@ -32,7 +32,6 @@ return Scaffold(
 
 
                 Container(
-
                       padding: EdgeInsets.all(10),
                       decoration: BoxDecoration(
                           color: TarjetoColors.rojoPrincipal,

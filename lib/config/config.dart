@@ -85,6 +85,7 @@ class TarjetoTextStyle {
   static const TextStyle btnTextNegro = TextStyle(fontWeight: FontWeight.bold, fontSize: 20, fontFamily:'Nunito', color: TarjetoColors.black,);
   //texto placeholder
   static const TextStyle placeholderInput = TextStyle(fontWeight: FontWeight.w500, fontSize: 18, fontFamily:'Nunito', color: TarjetoColors.fieldOutline,);
+  static const TextStyle placeholderRojoInput = TextStyle(fontWeight: FontWeight.bold, fontSize: 18, fontFamily:'Nunito', color: TarjetoColors.rojoHover,);
   static const TextStyle labelInputRojo = TextStyle(color: TarjetoColors.rojoPrincipal,);
 
 
@@ -93,6 +94,7 @@ class TarjetoTextStyle {
 }
 class TarjetoColors{
   static const Color rojoPrincipal = Color(0xFFF4262F);
+  static const Color rojoHover = Color(0xFFDA2931);
   static const Color white = Color(0xFFFFFFFF);
 
   static const Color black = Color(0xFF000000);
@@ -112,6 +114,7 @@ class TarjetoImages{
   static const String contrasenaIcon = 'assets/images/key_icon.svg';
   static const String profileIcon = 'assets/images/user_profile_icon.svg';
   static const String flechaDerechaIcon = 'assets/images/arrow_small_right_icon.svg';
+  static const String flechaDerechaIconTextColor = 'assets/images/arrow_small_right_textcolor_icon.svg';
 
   //iconos para navigation bar blancos
   static const String homewhite_icon = 'assets/images/homewhite_icon.svg';
