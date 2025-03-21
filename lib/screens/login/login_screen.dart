@@ -161,7 +161,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           elevation: 0,
                                         ),
                                         onPressed: () {
-                                          // Tu función aquí
+                                         Navigator.pushNamed(context, '/navigationbarprincipal');
                                         },
                                         child: Text(
                                           "Ingresar",

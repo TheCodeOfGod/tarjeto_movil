@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tarjeto/config/config.dart';
 import 'package:tarjeto/screens/login/login_screen.dart';
+import 'package:tarjeto/screens/navegationbar/navigation_bar_principal.dart';
 import 'package:tarjeto/screens/signup/signup.dart';
 import 'package:tarjeto/screens/signup/verificar_correo.dart';
 
@@ -29,6 +30,7 @@ class AppStart extends StatelessWidget {
           '/login': (context) => const LoginScreen(),
           '/signup': (context) => const Signup(),
           '/verificarcorreo': (context) => const VerificarCorreo(),
+          '/navigationbarprincipal': (context) => const NavigationBarPrincipal()
         },
 
     );

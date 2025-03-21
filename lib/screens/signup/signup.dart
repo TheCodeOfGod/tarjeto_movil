@@ -208,9 +208,10 @@ class _SignupState extends State<Signup> {
                                   Padding(
                                     padding: const EdgeInsets.fromLTRB(0, 30, 0, 20),
                                     child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        Text('¿Ya tienes cuenta? ¡Inicia sesión ',style: TarjetoTextStyle.medianoTextColorBold,),
-                                        GestureDetector(child: Text('aqui!', style: TarjetoTextStyle.medianoRojoBold,), onTap: () {
+                                        Text('¿Ya tienes cuenta? ¡Inicia sesión ',style: TarjetoTextStyle.chicoTextColorBold,),
+                                        GestureDetector(child: Text('aqui!', style: TarjetoTextStyle.chicoRojoBold,), onTap: () {
                                           Navigator.pushNamed(context, '/login');
                                         },)
                                       ],

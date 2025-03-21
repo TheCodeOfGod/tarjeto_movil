@@ -113,6 +113,20 @@ class TarjetoImages{
   static const String profileIcon = 'assets/images/user_profile_icon.svg';
   static const String flechaDerechaIcon = 'assets/images/arrow_small_right_icon.svg';
 
+  //iconos para navigation bar blancos
+  static const String homewhite_icon = 'assets/images/homewhite_icon.svg';
+  static const String locationwhite_icon = 'assets/images/locationwhite_icon.svg';
+  static const String badgewhite_icon = 'assets/images/badgewhite_icon.svg';
+  static const String offerwhite_icon= 'assets/images/offerwhite_icon.svg';
+  static const String add_place_newwhite_icon= 'assets/images/add_place_newwhite_icon.svg';
+
+  //iconos para navigation bar rojos
+  static const String homered_icon= 'assets/images/homered_icon.svg';
+  static const String locationred_icon= 'assets/images/locationred_icon.svg';
+  static const String badgered_icon= 'assets/images/badgered_icon.svg';
+  static const String offerred_icon= 'assets/images/offerred_icon.svg';
+  static const String add_place_newred_icon= 'assets/images/add_place_newred_icon.svg';
+
 }
 
 

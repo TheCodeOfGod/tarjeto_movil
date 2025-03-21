@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tarjeto/config/config.dart';
+import 'package:tarjeto/screens/login/login_screen.dart';
 
 class StartScreen extends StatefulWidget {
   const StartScreen({super.key});
@@ -16,17 +17,17 @@ class _StartScreenState extends State<StartScreen> {
         Expanded(
           child: Container(
             // Container para el fondo
-            padding: EdgeInsets.fromLTRB(0,60 , 0, 0),
+            padding: const EdgeInsets.fromLTRB(0, 60, 0, 0),
             color: TarjetoColors.rojoPrincipal,
             child: Column(
               children: [
                 Row(
-                  //Logo corazon blanco
+                  //Logo corazón blanco
                   children: [
                     Container(
-                      child: Image.asset(TarjetoImages.logoCorazonBlanco),
-                      margin: EdgeInsets.fromLTRB(30, 25, 20, 0),
+                      margin: const EdgeInsets.fromLTRB(30, 25, 20, 0),
                       width: 70,
+                      child: Image.asset(TarjetoImages.logoCorazonBlanco),
                     ),
                   ],
                 ),
@@ -34,44 +35,43 @@ class _StartScreenState extends State<StartScreen> {
                   //Imagen tarjetas desplegadas
                   children: [
                     Expanded(
-                        child: Container(
-
-                          padding: EdgeInsets.fromLTRB(140, 0, 0, 0),
-                          child: Image.asset(TarjetoImages.pngTarjetas),
-                        )),
-
+                      child: Container(
+                        padding: const EdgeInsets.fromLTRB(140, 0, 0, 0),
+                        child: Image.asset(TarjetoImages.pngTarjetas),
+                      ),
+                    ),
                   ],
                 ),
                 Row(
-                  // Titulo bienvenido a tarjeto
+                  // Título "Bienvenido a Tarjeto"
                   children: [
                     Expanded(
                       child: Container(
-                          margin: EdgeInsets.fromLTRB(25, 20, 25, 0),
-                          child: Text(
-                            "Bienvenido a tarjeto",
-                            style: TarjetoTextStyle.tituloGrandeBlancoExtBold
-                          )),
-                    )
-                  ],
-                ),
-                Row(
-                  // Texto debajo del titulo
-                  children: [
-                    Expanded(
-                      child: Container(
-                        margin: EdgeInsets.fromLTRB(25, 10, 25, 0),
+                        margin: const EdgeInsets.fromLTRB(25, 20, 25, 0),
                         child: Text(
-                          "Recibe recompensas al visitar tus lugares favoritos",
-                          style: TarjetoTextStyle.medianoBlancoBold
+                          "Bienvenido a tarjeto",
+                          style: TarjetoTextStyle.tituloGrandeBlancoExtBold,
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
-
                 Row(
-                  // Boton unirse ahora
+                  // Texto debajo del título
+                  children: [
+                    Expanded(
+                      child: Container(
+                        margin: const EdgeInsets.fromLTRB(25, 10, 25, 0),
+                        child: Text(
+                          "Recibe recompensas al visitar tus lugares favoritos",
+                          style: TarjetoTextStyle.medianoBlancoBold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  // Botón "Únete ahora"
                   children: [
                     Expanded(
                       child: Container(
@@ -95,12 +95,11 @@ class _StartScreenState extends State<StartScreen> {
                           ),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
-
                 Row(
-                  // Boton Acceder a tarejeto
+                  // Botón "Acceder a Tarjeto"
                   children: [
                     Expanded(
                       child: Container(
@@ -115,7 +114,7 @@ class _StartScreenState extends State<StartScreen> {
                             ),
                           ),
                           onPressed: () {
-                           Navigator.pushNamed(context, '/login');
+                            Navigator.of(context).push(_createRoute());
                           },
                           child: Text(
                             "Acceder a tarjeto",
@@ -123,15 +122,29 @@ class _StartScreenState extends State<StartScreen> {
                           ),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ],
             ),
           ),
-        )
+        ),
       ]),
-
     );
   }
+}
+
+Route _createRoute() {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => const LoginScreen(),
+  transitionsBuilder: (context, animation, secondaryAnimation, child) {
+  const begin = Offset(0.0, 1.0);
+  const end = Offset.zero;
+  const curve = Curves.ease;
+
+  var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+  return SlideTransition(position: animation.drive(tween), child: child);
+    }
+  );
 }

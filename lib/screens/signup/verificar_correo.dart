@@ -13,6 +13,8 @@ class _VerificarCorreoState extends State<VerificarCorreo> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: TarjetoColors.white,
+
+
     );
   }
 }
