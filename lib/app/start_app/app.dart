@@ -32,7 +32,7 @@ class AppStart extends StatelessWidget {
           '/login': (context) => const LoginScreen(),
           '/signup': (context) => const Signup(),
           '/verificarcorreo': (context) => const VerificarCorreo(),
-          '/subirfotoperfil': (context) => const SubirFotoPerfil(),
+          // '/subirfotoperfil': (context) => const SubirFotoPerfil(),
           '/navigationbarprincipal': (context) => const NavigationBarPrincipal()
         },
 

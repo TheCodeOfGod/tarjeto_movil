@@ -55,10 +55,19 @@ class TarjetoTextStyle {
   static const TextStyle medianoTextColorNormal = TextStyle(fontWeight: FontWeight.normal, fontSize: 18, fontFamily:'Nunito', color: TarjetoColors.textColor,);
   static const TextStyle medianoNegroNormal = TextStyle(fontWeight: FontWeight.normal, fontSize: 18, fontFamily:'Nunito', color: TarjetoColors.black,);
 
+  static const TextStyle medianoBlancoMedium = TextStyle(fontWeight: FontWeight.w500, fontSize: 18, fontFamily:'Nunito', color: TarjetoColors.white,);
+  static const TextStyle medianoRojoMedium = TextStyle(fontWeight: FontWeight.w500, fontSize: 18, fontFamily:'Nunito', color: TarjetoColors.rojoPrincipal,);
+  static const TextStyle medianoTextColorMedium = TextStyle(fontWeight: FontWeight.w500, fontSize: 18, fontFamily:'Nunito', color: TarjetoColors.textColor,);
+  static const TextStyle medianoNegroMedium = TextStyle(fontWeight: FontWeight.w500, fontSize: 18, fontFamily:'Nunito', color: TarjetoColors.black,);
+  static const TextStyle medianoVerdeMedium = TextStyle(fontWeight: FontWeight.w500, fontSize: 18, fontFamily:'Nunito', color: TarjetoColors.verde,);
+
   static const TextStyle medianoBlancoBold = TextStyle(fontWeight: FontWeight.bold, fontSize: 18, fontFamily:'Nunito', color: TarjetoColors.white,);
   static const TextStyle medianoRojoBold = TextStyle(fontWeight: FontWeight.bold, fontSize: 18, fontFamily:'Nunito', color: TarjetoColors.rojoPrincipal,);
   static const TextStyle medianoTextColorBold = TextStyle(fontWeight: FontWeight.bold, fontSize: 18, fontFamily:'Nunito', color: TarjetoColors.textColor,);
   static const TextStyle medianoNegroBold = TextStyle(fontWeight: FontWeight.bold, fontSize: 18, fontFamily:'Nunito', color: TarjetoColors.black,);
+  static const TextStyle medianoVerdeBold = TextStyle(fontWeight: FontWeight.bold, fontSize: 18, fontFamily:'Nunito', color: TarjetoColors.verde,);
+
+
 
 
   //Texto chico
@@ -76,7 +85,7 @@ class TarjetoTextStyle {
 
   //texto botones
 
-  static const TextStyle btnTextRojo = TextStyle(fontWeight: FontWeight.bold, fontSize: 20, fontFamily:'Nunito', color: TarjetoColors.rojoPrincipal,);
+  static const TextStyle btnTextRojo = TextStyle(fontWeight: FontWeight.bold, fontSize: 20, fontFamily:'Nunito', color: TarjetoColors.rojoHover,);
   static const TextStyle btnTextBlanco = TextStyle(fontWeight: FontWeight.bold, fontSize: 20, fontFamily:'Nunito', color: TarjetoColors.white,);
   static const TextStyle btnTextTextColor = TextStyle(fontWeight: FontWeight.bold, fontSize: 20, fontFamily:'Nunito', color: TarjetoColors.textColor,);
   static const TextStyle btnTextNegro = TextStyle(fontWeight: FontWeight.bold, fontSize: 20, fontFamily:'Nunito', color: TarjetoColors.black,);
@@ -99,6 +108,8 @@ class TarjetoColors{
   static const Color fieldBackground = Color(0xFFf2f2f2);
 
   static const Color textColor = Color(0xFF434343);
+
+  static const Color verde = Color(0xFF22c55e);
 }
 
 
@@ -107,11 +118,18 @@ class TarjetoImages{
   static const String pngTarjetas = 'assets/images/tarjetas.png';
   static const String logoRojoConLetras = 'assets/images/logoconletrasrojo.png';
 
+  // Iconos para inputs
   static const String emailIcon = 'assets/images/email_icon.svg';
   static const String contrasenaIcon = 'assets/images/key_icon.svg';
   static const String profileIcon = 'assets/images/user_profile_icon.svg';
+
+  // Iconos para botones
   static const String flechaDerechaIcon = 'assets/images/arrow_small_right_icon.svg';
   static const String flechaDerechaIconTextColor = 'assets/images/arrow_small_right_textcolor_icon.svg';
+  static const String upload_rojoPrincipal_icon = 'assets/images/upload_rojo_icon.svg';
+  static const String upload_verde_icon = 'assets/images/upload_verde_icon.svg';
+
+
 
   //iconos para navigation bar blancos
   static const String homewhite_icon = 'assets/images/homewhite_icon.svg';

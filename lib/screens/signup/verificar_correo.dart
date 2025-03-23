@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:tarjeto/config/config.dart';
+import 'package:tarjeto/screens/signup/subir_foto_perfil.dart';
 
 class VerificarCorreo extends StatefulWidget {
   const VerificarCorreo({Key? key}) : super(key: key);
@@ -79,7 +80,7 @@ class _VerificarCorreoState extends State<VerificarCorreo> {
               _errorMessage = "Usuario ${jsonDecode(newResponse.body)['user']['nombre']} verificado";
               _progres = true;
             });
-            Navigator.pushNamed(context, '/subirfotoperfil'); // Redirige si es exitoso a la siguiente pantalla
+            Navigator.push(context, MaterialPageRoute(builder: (context) => SubirFotoPerfil(nombreUsuario: "${jsonDecode(newResponse.body)['user']['nombre']}"))); // Redirige si es exitoso a la siguiente pantalla con el parametro del nombre
           } else {
             setState(() {
               _errorMessage = jsonDecode(newResponse.body)['message'] ?? "Error desconocido.";
