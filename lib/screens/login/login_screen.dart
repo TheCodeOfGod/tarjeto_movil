@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:http/http.dart' as http;
 
 import '../../config/config.dart';
 
@@ -14,6 +17,66 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   String? _errorMessage;
+
+  Future<void> _login() async {
+    final String apiUrl = "https://api.tarjeto.app/api/auth/login";
+    final Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Cliente': 'flutter-app',
+    };
+
+    final Map<String, String> body = {
+      'email': _emailController.text,
+      'contrasena': _passwordController.text,
+    };
+
+    try {
+      final client = http.Client();
+      final request = http.Request("POST", Uri.parse(apiUrl))
+        ..headers.addAll(headers)
+        ..body = jsonEncode(body);
+
+      final response = await client.send(request);
+
+      // Detecta si hay redirección (307)
+      if (response.statusCode == 307) {
+        final newUrl = response.headers['location']; // Obtiene la nueva URL
+        if (newUrl != null) {
+          print("Redirigiendo a: $newUrl");
+
+          final newResponse = await http.post(
+            Uri.parse(newUrl),
+            headers: headers,
+            body: jsonEncode(body),
+          );
+
+          if (newResponse.statusCode == 200) {
+            final Map<String, dynamic> responseData = jsonDecode(newResponse.body);
+            print("Login exitoso: ${responseData}");
+            Navigator.pushNamed(context, '/navigationbarprincipal');
+          } else {
+            setState(() {
+              _errorMessage = jsonDecode(newResponse.body)['message'] ?? "Error desconocido.";
+            });
+          }
+        }
+      } else if (response.statusCode == 200) {
+        final responseData = jsonDecode(await response.stream.bytesToString());
+        print("Login exitoso: ${responseData}");
+        Navigator.pushNamed(context, '/navigationbarprincipal');
+      } else {
+        setState(() {
+          _errorMessage = "Error: ${response.statusCode}";
+        });
+      }
+    } catch (e) {
+      print("Error: $e");
+      setState(() {
+        _errorMessage = "Error de conexión. Intenta de nuevo.";
+      });
+    }
+  }
 
   @override
   void dispose() {
@@ -95,7 +158,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   borderRadius: BorderRadius.circular(15),
                                 ),
                                 child: TextField(
-                                  // controller: _emailController,
+                                   controller: _emailController,
                                   cursorColor: TarjetoColors.fieldOutline,
                                   decoration: InputDecoration(
                                     labelText: 'Correo electronico',
@@ -126,7 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: TextField(
                                   cursorColor: TarjetoColors.fieldOutline,
                                   obscureText: true,
-                                  //controller: _emailController,
+                                  controller: _passwordController,
                                   decoration: InputDecoration(
                                     labelText: 'Contraseña',
                                     labelStyle: TarjetoTextStyle.placeholderInput,
@@ -143,6 +206,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                               ),
+
+                              if (_errorMessage != null)
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 10),
+                                  child: Text(
+                                    _errorMessage!,
+                                    style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                                  ),
+                                ),
 
                               //Boton ingresar
                               Row(
@@ -161,7 +233,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                           elevation: 0,
                                         ),
                                         onPressed: () {
-                                         Navigator.pushNamed(context, '/navigationbarprincipal');
+                                          _login();
+                                         //Navigator.pushNamed(context, '/navigationbarprincipal');
                                         },
                                         child: Text(
                                           "Ingresar",
@@ -220,3 +293,4 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+

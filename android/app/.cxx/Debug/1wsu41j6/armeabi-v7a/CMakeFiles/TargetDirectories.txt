@@ -1,0 +1,2 @@
+C:/Users/Dell/Desktop/Tarjeto/movil/tarjeto_movil/android/app/.cxx/Debug/1wsu41j6/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/Dell/Desktop/Tarjeto/movil/tarjeto_movil/android/app/.cxx/Debug/1wsu41j6/armeabi-v7a/CMakeFiles/rebuild_cache.dir

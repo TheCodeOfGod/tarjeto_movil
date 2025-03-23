@@ -3,9 +3,6 @@ library config.globals;
 import 'package:flutter/material.dart';
 
 
-
-
-
 class TarjetoTextStyle {
   //Titulos muy grandes
   static const TextStyle tituloExtraGrandeBlancoExtBold = TextStyle(fontWeight: FontWeight.w800, fontSize: 36, fontFamily:'Nunito', color: TarjetoColors.white,);
