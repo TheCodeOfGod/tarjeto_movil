@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -8,8 +6,11 @@ import 'package:http/http.dart' as http;
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:tarjeto/config/config.dart';
 import 'package:tarjeto/screens/signup/subir_foto_perfil.dart';
+import 'package:tarjeto/utilis/cliente_tarjeto.dart';
+import 'package:tarjeto/utilis/cliente_tarjeto_storage.dart';
 
 class VerificarCorreo extends StatefulWidget {
+
   const VerificarCorreo({Key? key}) : super(key: key);
 
   @override
@@ -17,14 +18,14 @@ class VerificarCorreo extends StatefulWidget {
 }
 
 class _VerificarCorreoState extends State<VerificarCorreo> {
+  final ClienteTarjetoStorage storage = ClienteTarjetoStorage();
   TextEditingController _pinController = TextEditingController();
-
   bool _progres = false;
-
   String? _errorMessage;
-
   //bandera para saber si esta lleno el pin
   bool isPinComplete = false;
+
+
 
   //funcion para cambiar la bandera del pin si ya se llenaron los 6
   void _onPinChanged(String value) {
@@ -80,7 +81,14 @@ class _VerificarCorreoState extends State<VerificarCorreo> {
               _errorMessage = "Usuario ${jsonDecode(newResponse.body)['user']['nombre']} verificado";
               _progres = true;
             });
-            Navigator.push(context, MaterialPageRoute(builder: (context) => SubirFotoPerfil(nombreUsuario: "${jsonDecode(newResponse.body)['user']['nombre']}"))); // Redirige si es exitoso a la siguiente pantalla con el parametro del nombre
+
+            ClienteTarjeto? clienteTarjeto = await storage.getCliente();
+            clienteTarjeto?.verificado = true;
+            clienteTarjeto?.pantalla = "/subirfotoperfil";
+
+            await storage.saveCliente(clienteTarjeto!);
+
+            Navigator.pushNamed(context, '/subirfotoperfil'); // Redirige si es exitoso a la siguiente pantalla con el parametro del nombre
           } else {
             setState(() {
               _errorMessage = jsonDecode(newResponse.body)['message'] ?? "Error desconocido.";

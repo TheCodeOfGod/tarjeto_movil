@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
+import 'package:tarjeto/utilis/cliente_tarjeto.dart';
+import 'package:tarjeto/utilis/cliente_tarjeto_storage.dart';
 
 import '../../config/config.dart';
 
@@ -14,6 +16,11 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
+  //Objeto para el storage
+  final ClienteTarjetoStorage storage = ClienteTarjetoStorage();
+
+
+  //Controladores de inputs
   TextEditingController _nombreController = TextEditingController();
   TextEditingController _correoController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
@@ -64,6 +71,15 @@ class _SignupState extends State<Signup> {
             final Map<String, dynamic> responseData = jsonDecode(newResponse.body);
             print("API EXITOSA newResponse.statusCode == 200");
             print("Login exitoso: ${responseData}");
+
+            ClienteTarjeto? cliente = await storage.getCliente();
+            cliente?.nombre = responseData['user']['nombre'];
+            cliente?.email = responseData['user']['email'];
+            cliente?.verificado = responseData['user']['verificado'];
+            cliente?.pantalla = "/verificarcorreo"; //guarda la pantalla que se quedara
+            await storage.saveCliente(cliente!);
+
+
             Navigator.pushNamed(context, '/verificarcorreo'); // Redirige si es exitoso a la siguiente pantalla
           } else {
             setState(() {

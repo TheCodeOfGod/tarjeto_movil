@@ -1,32 +1,47 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
-
+import 'package:tarjeto/utilis/cliente_tarjeto_storage.dart';
 import '../../config/config.dart';
+import '../../utilis/cliente_tarjeto.dart';
 
 class SubirFotoPerfil extends StatefulWidget {
-  final String nombreUsuario;
-  const SubirFotoPerfil({Key? key, required this.nombreUsuario}) : super(key: key);
+
+  const SubirFotoPerfil({Key? key,}) : super(key: key);
 
   @override
   _SubirFotoPerfilState createState() => _SubirFotoPerfilState();
 }
 
 class _SubirFotoPerfilState extends State<SubirFotoPerfil> {
+  //Para storage
+  final ClienteTarjetoStorage storage = ClienteTarjetoStorage();
+  ClienteTarjeto? clienteTarjeto;
+
   File? _imagenPerfil;
   String? _base64Imagen;
-  late String _nombreUsuario; //se inicializa en el initState()
+  String _nombreUsuario = "Nohaynombreaun"; //se inicializa en el initState()
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _nombreUsuario = widget.nombreUsuario;
+    cargarDatos();
+
+  }
+
+  Future<void> cargarDatos() async {
+    ClienteTarjeto? cliente = await storage.getCliente();
+    setState(() {
+      clienteTarjeto = cliente;
+      _nombreUsuario = clienteTarjeto!.nombre!;
+    });
+
+    print(clienteTarjeto!.nombre );
   }
 
   //Esta metodo permite subir imagen desde el dipositivo

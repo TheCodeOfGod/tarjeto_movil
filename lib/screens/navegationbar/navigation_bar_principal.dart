@@ -2,16 +2,45 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tarjeto/config/config.dart';
 import 'package:tarjeto/screens/navegationbar/add_lugar.dart';
+import 'package:tarjeto/utilis/cliente_tarjeto.dart';
+import 'package:tarjeto/utilis/cliente_tarjeto_storage.dart';
 
 class NavigationBarPrincipal extends StatefulWidget {
   const NavigationBarPrincipal({Key? key}) : super(key: key);
+
 
   @override
   _NavigationBarPrincipalState createState() => _NavigationBarPrincipalState();
 }
 
 class _NavigationBarPrincipalState extends State<NavigationBarPrincipal> {
+  final ClienteTarjetoStorage storage = ClienteTarjetoStorage();
+  ClienteTarjeto? clienteTarjeto;
+  bool isLoading = true;
+
+  //Variable para el navigation bar
   int currentPageIndex = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    cargarCliente();
+  }
+
+  Future<void> cargarCliente() async {
+    // Cargar el cliente desde SharedPreferences
+    ClienteTarjeto? cliente = await storage.getCliente();
+    cliente?.pantalla = "/navigationbarprincipal"; // se cambia elatributo pantalla
+
+    await storage.saveCliente(cliente!);
+      setState(() {
+        clienteTarjeto = cliente;
+        isLoading = false;
+      });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
