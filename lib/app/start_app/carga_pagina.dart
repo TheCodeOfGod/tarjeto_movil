@@ -22,6 +22,7 @@ class _CargaPaginaState extends State<CargaPagina> {
   }
 
   Future<void> cargarDatos() async {
+    //await storage.deleteCliente(); //CUIDADOOO BORRA EL STORAGE
     // Intenta cargar datos existentes
     ClienteTarjeto? cliente = await storage.getCliente();
     print("Datos del cliente: $cliente");

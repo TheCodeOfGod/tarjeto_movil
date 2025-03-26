@@ -4,6 +4,7 @@ import 'package:tarjeto/config/config.dart';
 import 'package:tarjeto/screens/login/login_screen.dart';
 import 'package:tarjeto/screens/navegationbar/navigation_bar_principal.dart';
 import 'package:tarjeto/screens/signup/signup.dart';
+import 'package:tarjeto/screens/signup/subir_datos_personales.dart';
 import 'package:tarjeto/screens/signup/subir_foto_perfil.dart';
 import 'package:tarjeto/screens/signup/verificar_correo.dart';
 import 'package:tarjeto/screens/start_screen.dart';
@@ -33,8 +34,9 @@ class AppStart extends StatelessWidget {
           '/login': (context) => const LoginScreen(),
           '/signup': (context) => const Signup(),
           '/verificarcorreo': (context) => const VerificarCorreo(),
-           '/subirfotoperfil': (context) => const SubirFotoPerfil(),
-          '/navigationbarprincipal': (context) => const NavigationBarPrincipal()
+          '/subirfotoperfil': (context) => const SubirFotoPerfil(),
+          '/navigationbarprincipal': (context) => const NavigationBarPrincipal(),
+          '/subirdatospersonales': (context)=> const SubirDatosPersonales()
         },
 
     );

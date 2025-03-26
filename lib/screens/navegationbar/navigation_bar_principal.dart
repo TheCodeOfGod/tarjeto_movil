@@ -120,48 +120,51 @@ class _NavigationBarPrincipalState extends State<NavigationBarPrincipal> {
       ),
 
       body:
-      <Widget>[
-        /// Inicio page
-        Card(
-          shadowColor: Colors.transparent,
-          margin: const EdgeInsets.all(8.0),
-          child: SizedBox.expand(
-            child: Center(child: Text('Home page', )),
+      PopScope(//Widget para manejar el retroceso de pagina
+        canPop: false, //no permitir retroceso de pagina
+        child: <Widget>[
+          /// Inicio page
+          Card(
+            shadowColor: Colors.transparent,
+            margin: const EdgeInsets.all(8.0),
+            child: SizedBox.expand(
+              child: Center(child: Text('Home page', )),
+            ),
           ),
-        ),
-
-        /// Ofertas Page
-        Card(
-          shadowColor: Colors.transparent,
-          margin: const EdgeInsets.all(8.0),
-          child: SizedBox.expand(
-            child: Center(child: Text('Ofertas Page', )),
+        
+          /// Ofertas Page
+          Card(
+            shadowColor: Colors.transparent,
+            margin: const EdgeInsets.all(8.0),
+            child: SizedBox.expand(
+              child: Center(child: Text('Ofertas Page', )),
+            ),
           ),
-        ),
-
-        /// Añadir lugar page
-        AddLugar(),
-
-        /// Logros page
-        Card(
-          shadowColor: Colors.transparent,
-          margin: const EdgeInsets.all(8.0),
-          child: SizedBox.expand(
-            child: Center(child: Text('Logros Page', )),
+        
+          /// Añadir lugar page
+          AddLugar(),
+        
+          /// Logros page
+          Card(
+            shadowColor: Colors.transparent,
+            margin: const EdgeInsets.all(8.0),
+            child: SizedBox.expand(
+              child: Center(child: Text('Logros Page', )),
+            ),
           ),
-        ),
-
-        /// Lugares page
-        Card(
-          shadowColor: Colors.transparent,
-          margin: const EdgeInsets.all(8.0),
-          child: SizedBox.expand(
-            child: Center(child: Text('Lugares Page', )),
+        
+          /// Lugares page
+          Card(
+            shadowColor: Colors.transparent,
+            margin: const EdgeInsets.all(8.0),
+            child: SizedBox.expand(
+              child: Center(child: Text('Lugares Page', )),
+            ),
           ),
-        ),
-
-
-      ][currentPageIndex],
+        
+        
+        ][currentPageIndex],
+      ),
     );
   }
 }

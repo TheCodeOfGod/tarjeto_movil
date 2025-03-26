@@ -84,11 +84,15 @@ class _VerificarCorreoState extends State<VerificarCorreo> {
 
             ClienteTarjeto? clienteTarjeto = await storage.getCliente();
             clienteTarjeto?.verificado = true;
+            clienteTarjeto?.token = responseData['token'];
             clienteTarjeto?.pantalla = "/subirfotoperfil";
 
             await storage.saveCliente(clienteTarjeto!);
 
-            Navigator.pushNamed(context, '/subirfotoperfil'); // Redirige si es exitoso a la siguiente pantalla con el parametro del nombre
+            Future.delayed(Duration(seconds: 2, microseconds: 500), () {
+              Navigator.pushNamed(context, '/subirfotoperfil'); // Redirige si es exitoso a la siguiente pantalla con el parametro del nombre
+            });
+
           } else {
             setState(() {
               _errorMessage = jsonDecode(newResponse.body)['message'] ?? "Error desconocido.";
@@ -116,168 +120,171 @@ class _VerificarCorreoState extends State<VerificarCorreo> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: TarjetoColors.white,
-      body: SafeArea(
-        bottom: false,
-        child: Container(color: TarjetoColors.white,
-          
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                 Row(children: [
-                    Container(
-                      child: Image.asset(TarjetoImages.logoRojoConLetras),
-                      width: 200,
-                      padding: EdgeInsets.fromLTRB(25, 25, 25, 0),
-                    )
-                  ]),
-                Padding(
-                  padding: const EdgeInsets.all(25.0),
-                  child:
-                        Text(
-                            'Te enviamos un código a tu correo para confirmar que eres tú.',
-                          style: TarjetoTextStyle.grandeTextColorMedium,
-                    ),
-                ),
+      body: PopScope( //Widget para manejar el retroceso
+        canPop: false, //no permitir retroceso
+        child: SafeArea(
+          bottom: false,
+          child: Container(color: TarjetoColors.white,
             
-                //Container ingresar codigo
-                Container(
-                  margin: EdgeInsets.all(25),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      color: TarjetoColors.fieldBackground,
-                      borderRadius: BorderRadius.circular(25)
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                   Row(children: [
+                      Container(
+                        child: Image.asset(TarjetoImages.logoRojoConLetras),
+                        width: 200,
+                        padding: EdgeInsets.fromLTRB(25, 25, 25, 0),
+                      )
+                    ]),
+                  Padding(
+                    padding: const EdgeInsets.all(25.0),
+                    child:
+                          Text(
+                              'Te enviamos un código a tu correo para confirmar que eres tú.',
+                            style: TarjetoTextStyle.grandeTextColorMedium,
+                      ),
                   ),
-                  padding: EdgeInsets.all(20),
-                  child: Container(
+              
+                  //Container ingresar codigo
+                  Container(
+                    margin: EdgeInsets.all(25),
+                    width: double.infinity,
                     decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.15),
-                          blurRadius:10, // Desenfoque
-                          spreadRadius: 0.2, // Expansión de la sombra
-                          offset: Offset(0, 0), // Dirección (X, Y)
-                        )
-                      ],
-                        color: TarjetoColors.white,
-                        borderRadius: BorderRadius.circular(15)
+                        color: TarjetoColors.fieldBackground,
+                        borderRadius: BorderRadius.circular(25)
                     ),
                     padding: EdgeInsets.all(20),
-                    child: Column(
-                      children: [
-                        //Texto ingresar código
-                        Text(
-                          'Ingresa tu código',
-                        style: TarjetoTextStyle.medianoNegroBold,
-                        ),
-            
-                        Container(
-                          margin: const EdgeInsets.fromLTRB(5, 40, 5, 0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: PinCodeTextField(
-                            controller: _pinController,
-                            keyboardType: TextInputType.number,
-                            appContext: context,
-                            length: 6,
-                            textStyle: TarjetoTextStyle.placeholderRojoInput,
-                            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                            pinTheme: PinTheme(
-                              shape: PinCodeFieldShape.box,
-                              inactiveColor: TarjetoColors.fieldOutline,
-                              activeColor: TarjetoColors.rojoHover,
-                              inactiveFillColor: TarjetoColors.fieldBackground,
-                              activeFillColor: TarjetoColors.rojoHover,
-                              selectedColor: TarjetoColors.rojoHover,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            onChanged: _onPinChanged,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.15),
+                            blurRadius:10, // Desenfoque
+                            spreadRadius: 0.2, // Expansión de la sombra
+                            offset: Offset(0, 0), // Dirección (X, Y)
                           )
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-
-                if (_errorMessage != null)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Text(
-                      _errorMessage!,
-                      style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-
-                // Botón siguiente
-                Container(
-                  margin: const EdgeInsets.fromLTRB(25, 40, 25, 0),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: isPinComplete ? TarjetoColors.rojoPrincipal : TarjetoColors.white,
-                      foregroundColor: TarjetoColors.fieldOutline,
-                      padding: const EdgeInsets.fromLTRB(0, 12, 0, 12),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(100),
+                        ],
+                          color: TarjetoColors.white,
+                          borderRadius: BorderRadius.circular(15)
                       ),
-                      elevation: 0,
+                      padding: EdgeInsets.all(20),
+                      child: Column(
+                        children: [
+                          //Texto ingresar código
+                          Text(
+                            'Ingresa tu código',
+                          style: TarjetoTextStyle.medianoNegroBold,
+                          ),
+              
+                          Container(
+                            margin: const EdgeInsets.fromLTRB(5, 40, 5, 0),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: PinCodeTextField(
+                              controller: _pinController,
+                              keyboardType: TextInputType.number,
+                              appContext: context,
+                              length: 6,
+                              textStyle: TarjetoTextStyle.placeholderRojoInput,
+                              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                              pinTheme: PinTheme(
+                                shape: PinCodeFieldShape.box,
+                                inactiveColor: TarjetoColors.fieldOutline,
+                                activeColor: TarjetoColors.rojoHover,
+                                inactiveFillColor: TarjetoColors.fieldBackground,
+                                activeFillColor: TarjetoColors.rojoHover,
+                                selectedColor: TarjetoColors.rojoHover,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              onChanged: _onPinChanged,
+                            )
+                          ),
+                        ],
+                      ),
                     ),
-                    onPressed: isPinComplete ? () {
-                      _verificarCodigo(); // Acción cuando el código está completo
-                    } : null, // Desactiva el botón si no está completo
+                  ),
+        
+                  if (_errorMessage != null)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Text(
+                        _errorMessage!,
+                        style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+        
+                  // Botón siguiente
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(25, 40, 25, 0),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: isPinComplete ? TarjetoColors.rojoPrincipal : TarjetoColors.white,
+                        foregroundColor: TarjetoColors.fieldOutline,
+                        padding: const EdgeInsets.fromLTRB(0, 12, 0, 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        elevation: 0,
+                      ),
+                      onPressed: isPinComplete ? () {
+                        _verificarCodigo(); // Acción cuando el código está completo
+                      } : null, // Desactiva el botón si no está completo
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Siguiente",
+                            style: isPinComplete ? TarjetoTextStyle.btnTextBlanco : TarjetoTextStyle.btnTextTextColor,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                            child: SvgPicture.asset(isPinComplete ? TarjetoImages.flechaDerechaIcon : TarjetoImages.flechaDerechaIconTextColor ,
+                              width: 20,
+                              height: 20,),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+        
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.fromLTRB(25, 80, 25, 0),
+                    decoration: BoxDecoration(
+                    ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          "Siguiente",
-                          style: isPinComplete ? TarjetoTextStyle.btnTextBlanco : TarjetoTextStyle.btnTextTextColor,
+                        Expanded(
+                          flex: 2,
+                          child: Container(
+                            height: 4,
+                            decoration: BoxDecoration(
+                              color: TarjetoColors.rojoPrincipal,
+                              borderRadius: BorderRadius.circular(2),
+                            ),
+                          ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                          child: SvgPicture.asset(isPinComplete ? TarjetoImages.flechaDerechaIcon : TarjetoImages.flechaDerechaIconTextColor ,
-                            width: 20,
-                            height: 20,),
-                        )
+                        const SizedBox(width: 5),
+                        Expanded(
+                          flex: _progres ? 0 : 1, //con la bandera _progres sabemos si se verifico y avanza la barra de progreso
+                          child: Container(
+                            height: 4,
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade300,
+                              borderRadius: BorderRadius.circular(2),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
-                ),
-
-                Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.fromLTRB(25, 80, 25, 0),
-                  decoration: BoxDecoration(
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Container(
-                          height: 4,
-                          decoration: BoxDecoration(
-                            color: TarjetoColors.rojoPrincipal,
-                            borderRadius: BorderRadius.circular(2),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 5),
-                      Expanded(
-                        flex: _progres ? 0 : 1, //con la bandera _progres sabemos si se verifico y avanza la barra de progreso
-                        child: Container(
-                          height: 4,
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade300,
-                            borderRadius: BorderRadius.circular(2),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-              ],
+        
+                ],
+              ),
             ),
-          ),
-        )
+          )
+        ),
       ),
 
 

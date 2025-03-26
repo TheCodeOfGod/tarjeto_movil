@@ -117,11 +117,15 @@ class TarjetoImages{
   static const String logoCorazonBlanco= 'assets/images/logocorazonblanco.png';
   static const String pngTarjetas = 'assets/images/tarjetas.png';
   static const String logoRojoConLetras = 'assets/images/logoconletrasrojo.png';
+  static const String usersmile_rojo_icon = 'assets/images/usersmile_rojo_icon.svg';
 
   // Iconos para inputs
   static const String emailIcon = 'assets/images/email_icon.svg';
   static const String contrasenaIcon = 'assets/images/key_icon.svg';
   static const String profileIcon = 'assets/images/user_profile_icon.svg';
+  static const String daily_textcolor_icon = 'assets/images/daily_textcolor_icon.svg';
+  static const String city_textcolor_icon = 'assets/images/city_textcolor_icon.svg';
+
 
   // Iconos para botones
   static const String flechaDerechaIcon = 'assets/images/arrow_small_right_icon.svg';
