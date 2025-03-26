@@ -49,12 +49,12 @@ class _SubirDatosPersonalesState extends State<SubirDatosPersonales> {
     ClienteTarjeto? clienteTarjeto = await storage.getCliente();
 
     clienteTarjeto?.edad = int.tryParse(edadController.text);
-    clienteTarjeto?.ciudad = ciudadController.toString();
+    clienteTarjeto?.ciudad = ciudadController.text;
     clienteTarjeto?.genero = genero;
 
     await storage.saveCliente(clienteTarjeto!);
 
-    Navigator.pushNamed(context, '/navigationbarprincipal');
+    Navigator.pushNamed(context, '/subircategorias');
   }
   @override
   Widget build(BuildContext context) {
@@ -216,6 +216,7 @@ class _SubirDatosPersonalesState extends State<SubirDatosPersonales> {
                                 Padding(
                                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
                                   child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text('Selecciona tu género', style: TarjetoTextStyle.placeholderInput,),
                                     ],

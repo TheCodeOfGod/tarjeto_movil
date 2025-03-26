@@ -330,8 +330,6 @@ class _SubirFotoPerfilState extends State<SubirFotoPerfil> {
             )
         ),
       ),
-
-
     );
   }
 }

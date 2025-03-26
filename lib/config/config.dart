@@ -149,6 +149,20 @@ class TarjetoImages{
   static const String offerred_icon= 'assets/images/offerred_icon.svg';
   static const String add_place_newred_icon= 'assets/images/add_place_newred_icon.svg';
 
+  //Iconos para categorias
+  static const String cafeteria_icono= 'assets/images/cafeteria_icono.svg';
+  static const String tacos_icono= 'assets/images/tacos_icono.svg';
+  static const String rapida_icon= 'assets/images/rapida_icon.svg';
+  static const String pizzeria_icono= 'assets/images/pizzeria_icono.svg';
+  static const String panaderia_icono= 'assets/images/panaderia_icono.svg';
+  static const String saludable_icono= 'assets/images/saludable_icono.svg';
+  static const String buffet_icono= 'assets/images/buffet_icono.svg';
+
+  static const String mariscos_icono= 'assets/images/mariscos_icono.svg';
+
+
+
+
 }
 
 
