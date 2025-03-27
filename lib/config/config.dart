@@ -160,9 +160,6 @@ class TarjetoImages{
 
   static const String mariscos_icono= 'assets/images/mariscos_icono.svg';
 
-
-
-
 }
 
 

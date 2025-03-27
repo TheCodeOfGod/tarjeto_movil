@@ -128,7 +128,25 @@ class _NavigationBarPrincipalState extends State<NavigationBarPrincipal> {
             shadowColor: Colors.transparent,
             margin: const EdgeInsets.all(8.0),
             child: SizedBox.expand(
-              child: Center(child: Text('Home page', )),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Home page', ),
+
+                  //BOTON QUE BORRA EL STORAGE
+                  Padding(
+                      padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                    child: ElevatedButton(
+                        onPressed: () {
+                          storage.deleteCliente();
+                        },
+                        child: Text('BORRAR STORAGE!!')
+                    ),
+
+                  )
+                ],
+              ),
+
             ),
           ),
         

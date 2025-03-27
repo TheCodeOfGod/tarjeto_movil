@@ -33,18 +33,9 @@ class _SubirCategoriasState extends State<SubirCategorias> {
 
   bool _selectOne = false;
 
+  String? _mensaje = null;
 
-  Future<void> _subirCategorias2() async{
-    ClienteTarjeto? clienteTarjeto = await storage.getCliente();
 
-    List<String> categoriasSeleccionadasALista = categoriasSeleccionadas.toList();
-    
-    // IMPRIMIR AQUI categoriasSeleccionadasALista
-    print('Categorías seleccionadas: $categoriasSeleccionadasALista');
-
-    clienteTarjeto?.categoriasFavoritas = categoriasSeleccionadasALista;
-
-  }
 
 
 
@@ -124,7 +115,13 @@ class _SubirCategoriasState extends State<SubirCategorias> {
           final String responseBody = await newResponse.stream.bytesToString();
 
           if (newResponse.statusCode == 200) {
+
+            // se imprime lo que retorna la API
+            print(responseBody);
+
             print("Categorías subidas correctamente.");
+            await storage.saveCliente(clienteTarjeto);
+            Navigator.pushNamed(context, '/navigationbarprincipal');
           } else {
             print("Error en la respuesta: $responseBody");
           }
@@ -237,10 +234,18 @@ class _SubirCategoriasState extends State<SubirCategorias> {
                                     setState(() {
                                       if (isSelected) {
                                         categoriasSeleccionadas.remove(id);
-
                                       } else {
                                         categoriasSeleccionadas.add(id);
                                       }
+                                      print(categoriasSeleccionadas);
+
+                                      if (categoriasSeleccionadas.isEmpty) {
+                                        _selectOne = false;
+                                      }else{
+                                        _selectOne = true;
+                                        _mensaje = null;
+                                      }
+
                                     });
                                   },
                                   child: Container(
@@ -249,7 +254,7 @@ class _SubirCategoriasState extends State<SubirCategorias> {
                                       borderRadius: BorderRadius.circular(15),
                                       border: Border.all(color: TarjetoColors.rojoPrincipal),
                                     ),
-                                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                                    padding: EdgeInsets.fromLTRB(15, 10, 0, 10),
                                     child: Row(
                                       children: [
                                         SvgPicture.asset(icono, width: 20, height: 20, color: isSelected ? Colors.white : TarjetoColors.rojoPrincipal),
@@ -277,6 +282,13 @@ class _SubirCategoriasState extends State<SubirCategorias> {
                       ),
                     ),
 
+                    if(_mensaje != null)
+                      Padding(
+                          padding: EdgeInsets.fromLTRB(25, 10, 25, 0),
+                        child: Text('$_mensaje' , style: TarjetoTextStyle.chicoRojoBold,),
+                      ),
+
+
 
                     // Botón siguiente
                     Container(
@@ -292,10 +304,14 @@ class _SubirCategoriasState extends State<SubirCategorias> {
                           ),
                           elevation: 0,
                         ),
-                        onPressed: (){
+                        onPressed: _selectOne ? (){
                           _subirCategorias();
-
-                        },
+                        } :
+                          (){
+                          setState(() {
+                            _mensaje = "Debes de elegir al menos una categoria :)";
+                          });
+                          },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -313,8 +329,6 @@ class _SubirCategoriasState extends State<SubirCategorias> {
                         ),
                       ),
                     ),
-
-
 
                   ],
                 ),

@@ -15,13 +15,17 @@ class ClienteTarjeto {
   String? codigoPostal;
 
   // Categorias favoritas
-  List<String>? categoriasFavoritas;
+  List<dynamic>? categoriasFavoritas;
 
   // Tarjetas
-  List<String>? tarjetas;
+  List<dynamic>? tarjetas;
 
   // Para saber a que pantalla dirigir
   String pantalla = "/bienvenida";
+
+  //datos del cliente
+  String? publicID;
+
 
   ClienteTarjeto({
     this.nombre,
@@ -36,6 +40,7 @@ class ClienteTarjeto {
     this.categoriasFavoritas,
     this.tarjetas,
     this.pantalla = "/bienvenida",
+    this.publicID,
   });
 
   // Convertir a JSON
@@ -53,6 +58,7 @@ class ClienteTarjeto {
       'categoriasFavoritas': categoriasFavoritas,
       'tarjetas': tarjetas,
       'pantalla': pantalla,
+      'publicID' : publicID
     };
   }
 
@@ -69,11 +75,18 @@ class ClienteTarjeto {
       ciudad: json['ciudad'],
       codigoPostal: json['codigoPostal'],
       categoriasFavoritas: json['categoriasFavoritas'] != null
-          ? List<String>.from(json['categoriasFavoritas'])
+          ? List<dynamic>.from(json['categoriasFavoritas'])
           : null,
       tarjetas:
-      json['tarjetas'] != null ? List<String>.from(json['tarjetas']) : null,
+      json['tarjetas'] != null ? List<dynamic>.from(json['tarjetas']) : null,
       pantalla: json['pantalla'] ?? "/bienvenida",
+      publicID: json['publicID'],
     );
   }
+
+  @override
+  String toString() {
+    return 'ClienteTarjeto{nombre: $nombre, email: $email, token: $token, verificado: $verificado, edad: $edad, genero: $genero, ciudad: $ciudad, codigoPostal: $codigoPostal, categoriasFavoritas: $categoriasFavoritas, tarjetas: $tarjetas, pantalla: $pantalla, publicID: $publicID}';
+  }
+
 }

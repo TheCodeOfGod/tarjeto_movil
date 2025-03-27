@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
+import 'package:tarjeto/utilis/cliente_tarjeto.dart';
+import 'package:tarjeto/utilis/cliente_tarjeto_storage.dart';
 
 import '../../config/config.dart';
 
@@ -14,11 +16,17 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final ClienteTarjetoStorage storage = ClienteTarjetoStorage();
+
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   String? _errorMessage;
 
   Future<void> _login() async {
+    //Defino un cliente de tarjeto con el STORAGE
+    ClienteTarjeto? clienteTarjeto = await storage.getCliente();
+
+
     final String apiUrl = "https://api.tarjeto.app/api/auth/login";
     final Map<String, String> headers = {
       'Content-Type': 'application/json',
@@ -53,7 +61,25 @@ class _LoginScreenState extends State<LoginScreen> {
 
           if (newResponse.statusCode == 200) {
             final Map<String, dynamic> responseData = jsonDecode(newResponse.body);
-            print("Login exitoso: ${responseData}");
+            //print("Login exitoso: ${responseData}");
+
+            clienteTarjeto?.nombre = responseData['user']['nombre'];
+            clienteTarjeto?.email = responseData['user']['email'];
+            clienteTarjeto?.token = responseData['token'];
+            clienteTarjeto?.verificado = responseData['user']['verificado'];
+            clienteTarjeto?.edad = responseData['user']['perfil']['datosPersonales']['edad'];
+            clienteTarjeto?.genero = responseData['user']['perfil']['datosPersonales']['genero'];
+            clienteTarjeto?.fotoPerfil = responseData['user']['perfil']['datosPersonales']['fotoPerfil'];
+            clienteTarjeto?.ciudad = responseData['user']['perfil']['datosPersonales']['ubicacion']['ciudad'];
+            clienteTarjeto?.codigoPostal = responseData['user']['perfil']['datosPersonales']['ubicacion']['codigoPostal'];
+            clienteTarjeto?.categoriasFavoritas = responseData['user']['perfil']['categoriaFavorita'];
+            clienteTarjeto?.tarjetas = responseData['user']['perfil']['tarjetas'];
+            clienteTarjeto?.publicID = responseData['user']['perfil']['publicID'];
+            print(clienteTarjeto.toString());
+
+
+
+
             Navigator.pushNamed(context, '/navigationbarprincipal');
           } else {
             setState(() {
