@@ -141,8 +141,8 @@ class _SubirFotoPerfilState extends State<SubirFotoPerfil> {
       print("No selecciono foto de perfil");
     }
 
-    await storage.saveCliente(clienteTarjeto!);
 
+    await storage.saveCliente(clienteTarjeto!);
     Navigator.pushNamed(context, '/subirdatospersonales');
   }
 

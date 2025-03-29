@@ -77,8 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
             clienteTarjeto?.publicID = responseData['user']['perfil']['publicID'];
             print(clienteTarjeto.toString());
 
-
-
+            await storage.saveCliente(clienteTarjeto!);
 
             Navigator.pushNamed(context, '/navigationbarprincipal');
           } else {

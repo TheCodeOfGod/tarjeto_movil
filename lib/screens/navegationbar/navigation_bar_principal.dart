@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tarjeto/config/config.dart';
 import 'package:tarjeto/screens/navegationbar/add_lugar.dart';
+import 'package:tarjeto/screens/navegationbar/inicio.dart';
 import 'package:tarjeto/utilis/cliente_tarjeto.dart';
 import 'package:tarjeto/utilis/cliente_tarjeto_storage.dart';
 
@@ -124,31 +125,7 @@ class _NavigationBarPrincipalState extends State<NavigationBarPrincipal> {
         canPop: false, //no permitir retroceso de pagina
         child: <Widget>[
           /// Inicio page
-          Card(
-            shadowColor: Colors.transparent,
-            margin: const EdgeInsets.all(8.0),
-            child: SizedBox.expand(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Home page', ),
-
-                  //BOTON QUE BORRA EL STORAGE
-                  Padding(
-                      padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
-                    child: ElevatedButton(
-                        onPressed: () {
-                          storage.deleteCliente();
-                        },
-                        child: Text('BORRAR STORAGE!!')
-                    ),
-
-                  )
-                ],
-              ),
-
-            ),
-          ),
+          Inicio(),
         
           /// Ofertas Page
           Card(

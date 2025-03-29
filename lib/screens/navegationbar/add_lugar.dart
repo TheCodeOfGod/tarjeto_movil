@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:tarjeto/config/config.dart';
+import 'package:tarjeto/utilis/cliente_tarjeto.dart';
+import 'package:tarjeto/utilis/cliente_tarjeto_storage.dart';
 
 class AddLugar extends StatefulWidget {
 const AddLugar({Key? key}) : super(key: key);
@@ -10,6 +12,26 @@ _AddLugarState createState() => _AddLugarState();
 }
 
 class _AddLugarState extends State<AddLugar> {
+  final ClienteTarjetoStorage storage = ClienteTarjetoStorage();
+  ClienteTarjeto? clienteTarjeto;
+  String? idCodigo;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _cargarStorage();
+  }
+  Future<void> _cargarStorage() async{
+    ClienteTarjeto? cliente = await storage.getCliente();
+    setState(() {
+      clienteTarjeto = cliente;
+      idCodigo = cliente!.publicID;
+      print(cliente.publicID);
+      print(cliente.toString());
+    });
+  }
+
 @override
 Widget build(BuildContext context) {
 return Scaffold(
@@ -30,7 +52,6 @@ return Scaffold(
                       style: TarjetoTextStyle.grandeTextColorBold,),
                 ),
 
-
                 Container(
                       padding: EdgeInsets.all(10),
                       decoration: BoxDecoration(
@@ -44,7 +65,7 @@ return Scaffold(
                             borderRadius: BorderRadius.circular(35)
                         ),
                         child: QrImageView(
-                          data: "CLIAB3B9F7695E03214",
+                          data: "$idCodigo",
                           size: 250,
                         ),
                       ),

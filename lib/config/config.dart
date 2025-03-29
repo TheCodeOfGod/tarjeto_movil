@@ -67,7 +67,23 @@ class TarjetoTextStyle {
   static const TextStyle medianoNegroBold = TextStyle(fontWeight: FontWeight.bold, fontSize: 18, fontFamily:'Nunito', color: TarjetoColors.black,);
   static const TextStyle medianoVerdeBold = TextStyle(fontWeight: FontWeight.bold, fontSize: 18, fontFamily:'Nunito', color: TarjetoColors.verde,);
 
+  //Texto normal
+  static const TextStyle normalBlancoNormal = TextStyle(fontWeight: FontWeight.normal, fontSize: 16, fontFamily:'Nunito', color: TarjetoColors.white,);
+  static const TextStyle normalRojoNormal = TextStyle(fontWeight: FontWeight.normal, fontSize: 16, fontFamily:'Nunito', color: TarjetoColors.rojoPrincipal,);
+  static const TextStyle normalTextColorNormal = TextStyle(fontWeight: FontWeight.normal, fontSize: 16, fontFamily:'Nunito', color: TarjetoColors.textColor,);
+  static const TextStyle normalNegroNormal = TextStyle(fontWeight: FontWeight.normal, fontSize: 16, fontFamily:'Nunito', color: TarjetoColors.black,);
 
+  static const TextStyle normalBlancoMedium = TextStyle(fontWeight: FontWeight.w500, fontSize: 16, fontFamily:'Nunito', color: TarjetoColors.white,);
+  static const TextStyle normalRojoMedium = TextStyle(fontWeight: FontWeight.w500, fontSize: 16, fontFamily:'Nunito', color: TarjetoColors.rojoPrincipal,);
+  static const TextStyle normalTextColorMedium = TextStyle(fontWeight: FontWeight.w500, fontSize: 16, fontFamily:'Nunito', color: TarjetoColors.textColor,);
+  static const TextStyle normalNegroMedium = TextStyle(fontWeight: FontWeight.w500, fontSize: 16, fontFamily:'Nunito', color: TarjetoColors.black,);
+  static const TextStyle normalVerdeMedium = TextStyle(fontWeight: FontWeight.w500, fontSize: 16, fontFamily:'Nunito', color: TarjetoColors.verde,);
+
+  static const TextStyle normalBlancoBold = TextStyle(fontWeight: FontWeight.bold, fontSize: 16, fontFamily:'Nunito', color: TarjetoColors.white,);
+  static const TextStyle normalRojoBold = TextStyle(fontWeight: FontWeight.bold, fontSize: 16, fontFamily:'Nunito', color: TarjetoColors.rojoPrincipal,);
+  static const TextStyle normalTextColorBold = TextStyle(fontWeight: FontWeight.bold, fontSize: 16, fontFamily:'Nunito', color: TarjetoColors.textColor,);
+  static const TextStyle normalNegroBold = TextStyle(fontWeight: FontWeight.bold, fontSize: 16, fontFamily:'Nunito', color: TarjetoColors.black,);
+  static const TextStyle normalVerdeBold = TextStyle(fontWeight: FontWeight.bold, fontSize: 16, fontFamily:'Nunito', color: TarjetoColors.verde,);
 
 
   //Texto chico
