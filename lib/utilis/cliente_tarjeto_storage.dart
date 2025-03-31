@@ -35,6 +35,7 @@ class ClienteTarjetoStorage{
 
   // Eliminar ClienteTarjeto
   Future<bool> deleteCliente() async {
+    print("Se ejecuto la funcion deleteClienteStorage");
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       return await prefs.remove(_keyCliente);

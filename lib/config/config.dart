@@ -147,7 +147,9 @@ class TarjetoImages{
   static const String logoRojoConLetras = 'assets/images/logoconletrasrojo.png';
   static const String logoBlancoConLetras = 'assets/images/logoconletrasblanco.png';
 
+  //Iconos como recursos
   static const String usersmile_rojo_icon = 'assets/images/usersmile_rojo_icon.svg';
+  static const String qr_icon = 'assets/images/qr_icon.svg';
 
   // Iconos para inputs
   static const String emailIcon = 'assets/images/email_icon.svg';
@@ -187,7 +189,6 @@ class TarjetoImages{
   static const String panaderia_icono= 'assets/images/panaderia_icono.svg';
   static const String saludable_icono= 'assets/images/saludable_icono.svg';
   static const String buffet_icono= 'assets/images/buffet_icono.svg';
-
   static const String mariscos_icono= 'assets/images/mariscos_icono.svg';
 
 }
