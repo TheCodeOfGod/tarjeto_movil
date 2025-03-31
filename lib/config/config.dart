@@ -87,15 +87,15 @@ class TarjetoTextStyle {
 
 
   //Texto chico
-  static const TextStyle chicoTextColorMedium = TextStyle(fontWeight: FontWeight.w500, fontSize: 12, fontFamily:'Nunito', color: TarjetoColors.textColor,);
-  static const TextStyle chicoBlancoMedium = TextStyle(fontWeight: FontWeight.w500, fontSize: 12, fontFamily:'Nunito', color: TarjetoColors.white,);
-  static const TextStyle chicoRojoMedium = TextStyle(fontWeight: FontWeight.w500, fontSize: 12, fontFamily:'Nunito', color: TarjetoColors.rojoPrincipal,);
-  static const TextStyle chicoNegroMedium = TextStyle(fontWeight: FontWeight.w500, fontSize: 12, fontFamily:'Nunito', color: TarjetoColors.black,);
+  static const TextStyle chicoTextColorMedium = TextStyle(fontWeight: FontWeight.w500, fontSize: 14, fontFamily:'Nunito', color: TarjetoColors.textColor,);
+  static const TextStyle chicoBlancoMedium = TextStyle(fontWeight: FontWeight.w500, fontSize: 14, fontFamily:'Nunito', color: TarjetoColors.white,);
+  static const TextStyle chicoRojoMedium = TextStyle(fontWeight: FontWeight.w500, fontSize: 14, fontFamily:'Nunito', color: TarjetoColors.rojoPrincipal,);
+  static const TextStyle chicoNegroMedium = TextStyle(fontWeight: FontWeight.w500, fontSize: 14, fontFamily:'Nunito', color: TarjetoColors.black,);
 
-  static const TextStyle chicoTextColorBold = TextStyle(fontWeight: FontWeight.bold, fontSize: 12, fontFamily:'Nunito', color: TarjetoColors.textColor,);
-  static const TextStyle chicoBlancoBold = TextStyle(fontWeight: FontWeight.bold, fontSize: 12, fontFamily:'Nunito', color: TarjetoColors.white,);
-  static const TextStyle chicoRojoBold = TextStyle(fontWeight: FontWeight.bold, fontSize: 12, fontFamily:'Nunito', color: TarjetoColors.rojoPrincipal,);
-  static const TextStyle chicoNegroBold = TextStyle(fontWeight: FontWeight.bold, fontSize: 12, fontFamily:'Nunito', color: TarjetoColors.black,);
+  static const TextStyle chicoTextColorBold = TextStyle(fontWeight: FontWeight.bold, fontSize: 14, fontFamily:'Nunito', color: TarjetoColors.textColor,);
+  static const TextStyle chicoBlancoBold = TextStyle(fontWeight: FontWeight.bold, fontSize: 14, fontFamily:'Nunito', color: TarjetoColors.white,);
+  static const TextStyle chicoRojoBold = TextStyle(fontWeight: FontWeight.bold, fontSize: 14, fontFamily:'Nunito', color: TarjetoColors.rojoPrincipal,);
+  static const TextStyle chicoNegroBold = TextStyle(fontWeight: FontWeight.bold, fontSize: 14, fontFamily:'Nunito', color: TarjetoColors.black,);
 
 
 
@@ -128,11 +128,25 @@ class TarjetoColors{
   static const Color verde = Color(0xFF22c55e);
 }
 
+// GRADIENTES
+
+class TarjetoGradient{
+  static const LinearGradient blueCardBackground = LinearGradient( begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [Color(0xD54D6775), Color(0xFF9ccfeb), Color(0xDF658799)]);
+  static const LinearGradient blueCardFooter = LinearGradient( begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [Color(0xFF4D6775) , Color(0xFF9ccfeb)]);
+
+  static const LinearGradient oroCardBackground = LinearGradient( begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [Color(0xFFd67166), Color(0xFFd38a3e), Color(0xFFd67166),],);
+  static const LinearGradient oroCardFooter = LinearGradient( begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [Color(0xFFB7900F) , Color(0xFFF9F930)]);
+  static const LinearGradient oro = LinearGradient( begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [Colors.blue, Colors.green]);
+}
+
 
 class TarjetoImages{
   static const String logoCorazonBlanco= 'assets/images/logocorazonblanco.png';
+  static const String logoCorazonRojo = 'assets/images/logoCorazonRojo.svg';
   static const String pngTarjetas = 'assets/images/tarjetas.png';
   static const String logoRojoConLetras = 'assets/images/logoconletrasrojo.png';
+  static const String logoBlancoConLetras = 'assets/images/logoconletrasblanco.png';
+
   static const String usersmile_rojo_icon = 'assets/images/usersmile_rojo_icon.svg';
 
   // Iconos para inputs
