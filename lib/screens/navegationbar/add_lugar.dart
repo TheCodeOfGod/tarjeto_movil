@@ -5,10 +5,10 @@ import 'package:tarjeto/utilis/cliente_tarjeto.dart';
 import 'package:tarjeto/utilis/cliente_tarjeto_storage.dart';
 
 class AddLugar extends StatefulWidget {
-const AddLugar({Key? key}) : super(key: key);
+  const AddLugar({Key? key}) : super(key: key);
 
-@override
-_AddLugarState createState() => _AddLugarState();
+  @override
+  _AddLugarState createState() => _AddLugarState();
 }
 
 class _AddLugarState extends State<AddLugar> {
@@ -18,11 +18,11 @@ class _AddLugarState extends State<AddLugar> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _cargarStorage();
   }
-  Future<void> _cargarStorage() async{
+
+  Future<void> _cargarStorage() async {
     ClienteTarjeto? cliente = await storage.getCliente();
     setState(() {
       clienteTarjeto = cliente;
@@ -32,51 +32,76 @@ class _AddLugarState extends State<AddLugar> {
     });
   }
 
-@override
-Widget build(BuildContext context) {
-return Scaffold(
-
-  backgroundColor: TarjetoColors.white,
-  //appBar: AppBar(title: Text('Generador de Qr')),
-  body: SafeArea(
-    child:
-
-          Padding(
-            padding: const EdgeInsets.all(25.0),
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: TarjetoColors.rojoPrincipal,
+      body: SafeArea(
+        child: Container(
+          color: TarjetoColors.white,
+          width: double.infinity,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 30),
             child: Column(
-
               children: [
-                Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 40),
-                    child: Text('Escanea este código en el dispositivo nexo del establecimiento que visites :)',
-                      style: TarjetoTextStyle.grandeTextColorBold,),
+                Text(
+                  'Escanea este código cuando visites un lugar Tarjeto',
+                  textAlign: TextAlign.center,
+                  style: TarjetoTextStyle.grandeTextColorBold,
                 ),
-
-                Container(
-                      padding: EdgeInsets.all(10),
+                const SizedBox(height: 40),
+                Expanded(
+                  child: Center(
+                    child: Container(
+                      padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
-                          color: TarjetoColors.rojoPrincipal,
-                        borderRadius: BorderRadius.circular(45)
+                        color: TarjetoColors.rojoPrincipal,
+                        borderRadius: BorderRadius.circular(30),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 15,
+                            offset: const Offset(0, 6),
+                          ),
+                        ],
                       ),
                       child: Container(
-                        padding: EdgeInsets.all(5),
+                        width: 270,
+                        height: 370,
                         decoration: BoxDecoration(
-                            color: TarjetoColors.white,
-                            borderRadius: BorderRadius.circular(35)
+                          color: TarjetoColors.white,
+                          borderRadius: BorderRadius.circular(25),
                         ),
-                        child: QrImageView(
-                          data: "$idCodigo",
-                          size: 250,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.qr_code_scanner,
+                              size: 40,
+                              color: TarjetoColors.rojoPrincipal,
+                            ),
+                            const SizedBox(height: 20),
+                            QrImageView(
+                              data: "$idCodigo",
+                              size: 180,
+                            ),
+                            const SizedBox(height: 20),
+                            Text(
+                              'Tu código Tarjeto',
+                              style: TarjetoTextStyle.normalTextColorNormal
+
+                            ),
+                          ],
                         ),
                       ),
                     ),
+                  ),
+                ),
               ],
             ),
           ),
-
-
-  )
-
-);
-}
+        ),
+      ),
+    );
+  }
 }

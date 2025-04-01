@@ -124,6 +124,8 @@ class _SubirCategoriasState extends State<SubirCategorias> {
             Navigator.pushNamed(context, '/navigationbarprincipal');
           } else {
             print("Error en la respuesta: $responseBody");
+            await storage.saveCliente(clienteTarjeto);
+            Navigator.pushNamed(context, '/navigationbarprincipal');
           }
         }
       } else if (response.statusCode == 200) {

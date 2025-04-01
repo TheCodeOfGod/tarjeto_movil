@@ -3,6 +3,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:tarjeto/config/config.dart';
 import 'package:tarjeto/screens/navegationbar/add_lugar.dart';
 import 'package:tarjeto/screens/navegationbar/inicio.dart';
+import 'package:tarjeto/screens/navegationbar/lugares.dart';
+import 'package:tarjeto/screens/navegationbar/ofertas.dart';
+import 'package:tarjeto/screens/navegationbar/tarjetas.dart';
 import 'package:tarjeto/utilis/cliente_tarjeto.dart';
 import 'package:tarjeto/utilis/cliente_tarjeto_storage.dart';
 
@@ -102,7 +105,7 @@ class _NavigationBarPrincipalState extends State<NavigationBarPrincipal> {
                 height: 24,),
               icon: SvgPicture.asset(TarjetoImages.badgewhite_icon,
                   width: 24, height: 24),
-              label: ' Logros',
+              label: 'Tarjetas',
             ),
 
             //Lugares
@@ -112,7 +115,7 @@ class _NavigationBarPrincipalState extends State<NavigationBarPrincipal> {
                 height: 24,),
               icon: SvgPicture.asset(TarjetoImages.locationwhite_icon,
                   width: 24, height: 24),
-              label: ' Lugares',
+              label: 'Lugares',
             ),
 
 
@@ -128,34 +131,16 @@ class _NavigationBarPrincipalState extends State<NavigationBarPrincipal> {
           Inicio(),
         
           /// Ofertas Page
-          Card(
-            shadowColor: Colors.transparent,
-            margin: const EdgeInsets.all(8.0),
-            child: SizedBox.expand(
-              child: Center(child: Text('Ofertas Page', )),
-            ),
-          ),
+          Ofertas(),
         
           /// Añadir lugar page
           AddLugar(),
         
-          /// Logros page
-          Card(
-            shadowColor: Colors.transparent,
-            margin: const EdgeInsets.all(8.0),
-            child: SizedBox.expand(
-              child: Center(child: Text('Logros Page', )),
-            ),
-          ),
+          /// Tarjetas page
+          Tarjetas(),
         
           /// Lugares page
-          Card(
-            shadowColor: Colors.transparent,
-            margin: const EdgeInsets.all(8.0),
-            child: SizedBox.expand(
-              child: Center(child: Text('Lugares Page', )),
-            ),
-          ),
+          Lugares(),
         
         
         ][currentPageIndex],

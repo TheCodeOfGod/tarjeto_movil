@@ -4,7 +4,7 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
-import 'package:tarjeto/screens/navegationbar/expandir_tarjeta.dart';
+import 'package:tarjeto/screens/navegationbar/pantallas/expandir_tarjeta.dart';
 import 'package:tarjeto/screens/navegationbar/widgets/TarjetaProgreso.dart';
 import 'package:tarjeto/screens/navegationbar/widgets/tarjeta_card.dart';
 import 'package:tarjeto/utilis/cliente_tarjeto.dart';
@@ -110,15 +110,7 @@ class _InicioState extends State<Inicio> {
 
           await storage.saveCliente(nuevoCliente);
 
-          // Actualizar en pantalla
-          setState(() {
-            clienteTarjeto = nuevoCliente;
-            _nombre = nuevoCliente.nombre;
-            _fotoBase64 = nuevoCliente.fotoPerfil;
-            if (_fotoBase64 != null) {
-              _cargarImagen(_fotoBase64!);
-            }
-          });
+
 
           print("Cliente actualizado y guardado correctamente en storage.");
         } else {

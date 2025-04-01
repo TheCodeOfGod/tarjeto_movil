@@ -5,10 +5,10 @@ import 'package:http/http.dart' as http;
 import 'package:tarjeto/screens/navegationbar/widgets/tarjeta_card.dart';
 import 'package:tarjeto/utilis/cliente_tarjeto_storage.dart';
 
-import '../../config/config.dart';
-import '../../utilis/cliente_tarjeto.dart';
-import '../../utilis/promocion.dart';
-import '../../utilis/tarjeta.dart';
+import '../../../config/config.dart';
+import '../../../utilis/cliente_tarjeto.dart';
+import '../../../utilis/promocion.dart';
+import '../../../utilis/tarjeta.dart';
 
 class ExpandirTarjeta extends StatefulWidget{
   final TarjetaTarjeto tarjeta;
@@ -137,7 +137,7 @@ class _ExpandirTarjetaState extends State<ExpandirTarjeta> {
                         )
                     ),
 
-                    //Aqui ira la lista de promociones del negocio
+                    //Lista de promociones del negocio
                     if (_promociones.isNotEmpty)
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -204,7 +204,6 @@ class _ExpandirTarjetaState extends State<ExpandirTarjeta> {
                           ),
                         ),
                       ),
-
                   ],
                 ),
               ),

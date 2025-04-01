@@ -74,14 +74,14 @@ class TarjetaProgreso extends StatelessWidget {
                       children: [
                         Text(
                           "$porcentaje%",
-                          style: TarjetoTextStyle.tituloBlancoBold,
+                          style: TarjetoTextStyle.tituloFieldOutlineBold
 
                         ),
                         Text(
                           "$visitas/$visitasRequeridas visitas",
                           style: TextStyle(
                             fontSize: 12,
-                            color: TarjetoColors.white,
+                            color: TarjetoColors.fieldOutline,
                           ),
                         ),
                       ],

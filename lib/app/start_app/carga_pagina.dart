@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tarjeto/config/config.dart';
 import 'package:tarjeto/utilis/cliente_tarjeto.dart';
 import 'package:tarjeto/utilis/cliente_tarjeto_storage.dart';
 
@@ -59,8 +61,9 @@ class _CargaPaginaState extends State<CargaPagina> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: TarjetoColors.white,
       body: Center(
-        child: Text('cargando'),
+        child: Image.asset(TarjetoImages.logoRojoConLetras, width: 200,)
       ),
 
     );

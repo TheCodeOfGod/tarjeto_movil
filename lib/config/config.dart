@@ -31,6 +31,7 @@ class TarjetoTextStyle {
   static const TextStyle tituloBlancoBold= TextStyle(fontWeight: FontWeight.bold, fontSize: 26, fontFamily:'Nunito', color: TarjetoColors.white,);
   static const TextStyle tituloRojoBold= TextStyle(fontWeight: FontWeight.bold, fontSize: 26, fontFamily:'Nunito', color: TarjetoColors.rojoPrincipal,);
   static const TextStyle tituloNegroBold= TextStyle(fontWeight: FontWeight.bold, fontSize: 26, fontFamily:'Nunito', color: TarjetoColors.black,);
+  static const TextStyle tituloFieldOutlineBold= TextStyle(fontWeight: FontWeight.bold, fontSize: 26, fontFamily:'Nunito', color: TarjetoColors.fieldOutline,);
 
   //texto grande
   static const TextStyle grandeTextColorNormal= TextStyle(fontWeight: FontWeight.normal, fontSize: 24, fontFamily:'Nunito', color: TarjetoColors.textColor,);
