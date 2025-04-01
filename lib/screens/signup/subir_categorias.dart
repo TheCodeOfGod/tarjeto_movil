@@ -56,7 +56,7 @@ class _SubirCategoriasState extends State<SubirCategorias> {
     final Map<String, String> headers = {
       "Accept": "application/json",
       "Cliente": "flutter-app",
-      "Authorization": "Bearer $token"
+      "mobile-auth": "Bearer $token"
     };
 
     // Datos en formato JSON

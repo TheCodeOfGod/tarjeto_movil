@@ -4,7 +4,9 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
+import 'package:tarjeto/screens/navegationbar/expandir_tarjeta.dart';
 import 'package:tarjeto/screens/navegationbar/widgets/TarjetaProgreso.dart';
+import 'package:tarjeto/screens/navegationbar/widgets/tarjeta_card.dart';
 import 'package:tarjeto/utilis/cliente_tarjeto.dart';
 import 'package:tarjeto/utilis/cliente_tarjeto_storage.dart';
 import 'package:tarjeto/utilis/tarjeta.dart';
@@ -289,259 +291,206 @@ class _InicioState extends State<Inicio> {
           child:
           Container(
             color: TarjetoColors.white,
-            child: Padding(
-              padding: const EdgeInsets.all(25.0),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        //Imagen de perfil
-                        Container(
-                          margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                          width: 60,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-
-                                color: TarjetoColors.rojoPrincipal.withOpacity(0.20),
-                                blurRadius: 2, // Desenfoque
-                                spreadRadius: 0.2, // Expansión de la sombra
-                                offset: Offset(0, 0), // Dirección (X, Y)
-                              )
-                            ],
-                            borderRadius: BorderRadius.circular(100),
-                            color: TarjetoColors.fieldBackground,
-                          ),
-                
-                          child: ClipOval(
-                              child: imagenPerfil ?? CircularProgressIndicator() //SvgPicture.asset(TarjetoImages.usersmile_rojo_icon)
-                          ),
-                        ),
-                
-                        // Texto del nombre
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('¡Hola', style: TarjetoTextStyle.normalRojoBold,),
-                            Text('$_nombre!', style: TarjetoTextStyle.medianoTextColorBold,),
-                          ],
-                        ),
-                
-                        //Spacer para el icono de tarjeto a la derecha
-                        Spacer(),
-                        SvgPicture.asset(TarjetoImages.logoCorazonRojo, height: 32,)
-                      ],
-                    ),
-                
-                    Container(
-                      margin: EdgeInsets.fromLTRB(8, 30, 0, 0),
-                        child: Row(
-                          children: [
-                            Text('Sección de ofertas', style: TarjetoTextStyle.medianoTextColorBold,),
-                          ],
-                        )
-                    ),
-                
-                    //Carrusel de promociones
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 6, 0, 0),
-                      child: Container(
-                        padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                        decoration: BoxDecoration(
-                          color: TarjetoColors.fieldBackground,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: CarouselSlider(
-                          options: CarouselOptions(
-                            height: 150, // Mantenemos la altura fija como estaba originalmente
-                            autoPlay: true,
-                            viewportFraction: 1.0, // Cambiamos a 1.0 para que ocupe todo el ancho
-                            autoPlayInterval: Duration(seconds: 6),
-                            autoPlayAnimationDuration: Duration(milliseconds: 800),
-                          ),
-                          items: _promociones.map((promocion) {
-                            return Builder(
-                              builder: (BuildContext context) {
-                                return Container(
-                                  padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-                                  width: MediaQuery.of(context).size.width, // Usa todo el ancho disponible
-                                  margin: EdgeInsets.symmetric(horizontal: 17.0, vertical: 17.0), // Reducimos el margen horizontal
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(15),
-                                    //border: Border.all(color: TarjetoColors.rojoPrincipal, width: 2),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: TarjetoColors.black.withOpacity(0.15),
-                                        blurRadius:8, // Desenfoque
-                                        spreadRadius: 0.2, // Expansión de la sombra
-                                        offset: Offset(0, 0), // Dirección (X, Y)
-                                      )
-                                    ],
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              promocion.negocio!,
-                                              style: TarjetoTextStyle.normalTextColorBold,
-                                            ),
-                                            SizedBox(height: 4),
-                                            Text(
-                                              promocion.descripcion!,
-                                              style: TarjetoTextStyle.chicoTextColorMedium,
-                                            ),
-                                            SizedBox(height: 8),
-                                            Container(
-                                              padding: EdgeInsets.symmetric(horizontal: 10),
-                                              decoration: BoxDecoration(
-                                                color: TarjetoColors.rojoPrincipal,
-                                                borderRadius: BorderRadius.circular(15),
-                                              ),
-                                              child: Text(
-                                                promocion.nivelRequerido!,
-                                                style: TextStyle(color: Colors.white, fontSize: 12),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                    ),
-                
-                    // Tarjeta favorita (La que tenga mas visitas)
-                    Container(
-                        margin: EdgeInsets.fromLTRB(8, 20, 0, 0),
-                        child: Row(
-                          children: [
-                            Text('Tu tarjeta favorita:', style: TarjetoTextStyle.medianoTextColorBold,),
-                          ],
-                        )
-                    ),
-
-                    //Tarjeta favorita
-                    Container(
-                      margin: EdgeInsets.fromLTRB(0, 8, 0, 0),
-                      height: 220,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        gradient: TarjetoGradient.oroCardBackground,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: listaTarjetas == null
-                          ? Center(child: CircularProgressIndicator(color: TarjetoColors.rojoHover))
-                          : listaTarjetas!.isEmpty
-                          ? Center(
-                        child: Text(
-                          "Aún no has visitado ningún lugar",
-                          style: TarjetoTextStyle.medianoTextColorBold,
-                          textAlign: TextAlign.center,
-                        ),
-                      )
-                          : Column(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(25.0),
+                  child: Column(
+                    children: [
+                      Row(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(25, 20, 0, 0),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    tarjetaFavorita!.negocioNombre ?? 'Nombre no disponible',
-                                    style: TarjetoTextStyle.tituloBlancoBold,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Spacer(),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(25, 0, 0, 20),
-                            child: Row(
-                              children: [
-                                SvgPicture.asset(TarjetoImages.qr_icon),
-                              ],
-                            ),
-                          ),
-                          
+                          //Imagen de perfil
                           Container(
-                            width: double.infinity,
-                            padding: EdgeInsets.fromLTRB(25, 15, 0, 15),
+                            margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                            width: 60,
+                            height: 60,
                             decoration: BoxDecoration(
-                              gradient: TarjetoGradient.oroCardFooter,
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(20),
-                                bottomRight: Radius.circular(20),
-                              ),
-                            ),
-                            child: Row(
-                              children: [
-                                Image.asset(TarjetoImages.logoBlancoConLetras, height: 25),
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                  child: Text('•', style: TarjetoTextStyle.normalBlancoMedium),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                  child: Text(
-                                    tarjetaFavorita!.nivelNombre != null
-                                        ? 'Nivel ${tarjetaFavorita!.nivelNombre}'
-                                        : 'Sin nivel',
-                                    style: TarjetoTextStyle.normalBlancoMedium,
-                                  ),
-                                ),
+                              boxShadow: [
+                                BoxShadow(
+              
+                                  color: TarjetoColors.rojoPrincipal.withOpacity(0.20),
+                                  blurRadius: 2, // Desenfoque
+                                  spreadRadius: 0.2, // Expansión de la sombra
+                                  offset: Offset(0, 0), // Dirección (X, Y)
+                                )
                               ],
+                              borderRadius: BorderRadius.circular(100),
+                              color: TarjetoColors.fieldBackground,
+                            ),
+              
+                            child: ClipOval(
+                                child: imagenPerfil ?? CircularProgressIndicator() //SvgPicture.asset(TarjetoImages.usersmile_rojo_icon)
                             ),
                           ),
+              
+                          // Texto del nombre
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('¡Hola', style: TarjetoTextStyle.normalRojoBold,),
+                              Text('$_nombre!', style: TarjetoTextStyle.medianoTextColorBold,),
+                            ],
+                          ),
+              
+                          //Spacer para el icono de tarjeto a la derecha
+                          Spacer(),
+                          SvgPicture.asset(TarjetoImages.logoCorazonRojo, height: 32,)
                         ],
                       ),
-                    ),
-                
-                
-                    if (tarjetaFavorita != null)
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                        child: TarjetaProgreso(tarjeta: tarjetaFavorita!,),
-                      ),
-
-                    if (tarjetaFavorita == null)
+              
                       Container(
-                        height: 120,
+                        margin: EdgeInsets.fromLTRB(8, 30, 0, 0),
+                          child: Row(
+                            children: [
+                              Text('Sección de ofertas', style: TarjetoTextStyle.medianoTextColorBold,),
+                            ],
+                          )
+                      ),
+              
+                      //Carrusel de promociones
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 6, 0, 0),
+                        child: Container(
+                          padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          decoration: BoxDecoration(
+                            color: TarjetoColors.fieldBackground,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: CarouselSlider(
+                            options: CarouselOptions(
+                              height: 150, // Mantenemos la altura fija como estaba originalmente
+                              autoPlay: true,
+                              viewportFraction: 1.0, // Cambiamos a 1.0 para que ocupe todo el ancho
+                              autoPlayInterval: Duration(seconds: 6),
+                              autoPlayAnimationDuration: Duration(milliseconds: 800),
+                            ),
+                            items: _promociones.map((promocion) {
+                              return Builder(
+                                builder: (BuildContext context) {
+                                  return Container(
+                                    padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                    width: MediaQuery.of(context).size.width, // Usa todo el ancho disponible
+                                    margin: EdgeInsets.symmetric(horizontal: 17.0, vertical: 17.0), // Reducimos el margen horizontal
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(15),
+                                      //border: Border.all(color: TarjetoColors.rojoPrincipal, width: 2),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: TarjetoColors.black.withOpacity(0.15),
+                                          blurRadius:8, // Desenfoque
+                                          spreadRadius: 0.2, // Expansión de la sombra
+                                          offset: Offset(0, 0), // Dirección (X, Y)
+                                        )
+                                      ],
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                promocion.negocio!,
+                                                style: TarjetoTextStyle.normalTextColorBold,
+                                              ),
+                                              SizedBox(height: 4),
+                                              Text(
+                                                promocion.descripcion!,
+                                                style: TarjetoTextStyle.chicoTextColorMedium,
+                                              ),
+                                              SizedBox(height: 8),
+                                              Container(
+                                                padding: EdgeInsets.symmetric(horizontal: 10),
+                                                decoration: BoxDecoration(
+                                                  color: TarjetoColors.rojoPrincipal,
+                                                  borderRadius: BorderRadius.circular(15),
+                                                ),
+                                                child: Text(
+                                                  promocion.nivelRequerido!,
+                                                  style: TextStyle(color: Colors.white, fontSize: 12),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ),
+              
+                      // Tarjeta favorita (La que tenga mas visitas)
+                      Container(
+                          margin: EdgeInsets.fromLTRB(8, 20, 0, 0),
+                          child: Row(
+                            children: [
+                              Text('Tu tarjeta favorita:', style: TarjetoTextStyle.medianoTextColorBold,),
+                            ],
+                          )
                       ),
 
-                
-                
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        //BOTON QUE BORRA EL STORAGE
+
+              
+                      //Tarjeta favorita
+                      if (tarjetaFavorita != null)
                         Padding(
-                          padding: EdgeInsets.fromLTRB(0, 40, 0, 20),
-                          child: ElevatedButton(
-                              onPressed: () async{
-                                await storage.deleteCliente();
-                                Navigator.pushNamed(context, '/');
-                              },
-                              child: Text('Cerrar sesión!!')
+                          padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                          child: GestureDetector(
+                              child: TarjetaCard(tarjeta: tarjetaFavorita!),
+                            onTap: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => ExpandirTarjeta(tarjeta: tarjetaFavorita!)));
+                            },
                           ),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
+                        ),
+
+                      if(tarjetaFavorita ==null)
+                        Container(height: 160,),
+
+                      if (tarjetaFavorita==null)
+                        CircularProgressIndicator(
+                          color: TarjetoColors.rojoPrincipal,
+                        ),
+
+                      if(tarjetaFavorita ==null)
+                        Container(height: 160,),
+              
+                      if (tarjetaFavorita != null)
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                          child: TarjetaProgreso(tarjeta: tarjetaFavorita!,),
+                        ),
+              
+
+              
+              
+              
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          //BOTON QUE BORRA EL STORAGE
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(0, 40, 0, 20),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: TarjetoColors.rojoPrincipal
+                              ),
+                                onPressed: () async{
+                                  await storage.deleteCliente();
+                                  Navigator.pushNamed(context, '/');
+                                },
+                                child: Text('Cerrar sesión!!', style: TarjetoTextStyle.normalBlancoNormal,)
+                            ),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                
               ),
             ),
           ),
