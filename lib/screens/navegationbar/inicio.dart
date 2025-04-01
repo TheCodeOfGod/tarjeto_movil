@@ -462,7 +462,12 @@ class _InicioState extends State<Inicio> {
                       if (tarjetaFavorita != null)
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                          child: TarjetaProgreso(tarjeta: tarjetaFavorita!,),
+                          child: GestureDetector(
+                              child: TarjetaProgreso(tarjeta: tarjetaFavorita!,),
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => ExpandirTarjeta(tarjeta: tarjetaFavorita!)));
+                            },
+                          ),
                         ),
               
 
